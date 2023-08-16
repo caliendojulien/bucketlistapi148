@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HTMX</title>
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+</head>
+<body>
+<button id="bouton">Charger les wishes</button>
+<p id="chargement" hidden>Chargement ...</p>
+<hr>
+<div id="wishes"></div>
+</body>
+<script>
+    document.getElementById("bouton").addEventListener("click", function(){
+        document.getElementById("chargement").hidden = false;
+        document.getElementById("wishes").innerHTML = '';
+        fetch("http://localhost:8000/api/wishes")
+            .then(donnees => donnees.json())
+            .then(wishes => {
+                for (let wish of wishes['hydra:member']) {
+                    let nouvelElement = document.createElement("li");
+                    nouvelElement.innerText = wish['titre'] + ' - ' + wish['description'];
+                    document.getElementById("wishes").appendChild(
+                        nouvelElement
+                    );
+                }
+            })
+        document.getElementById("chargement").hidden = true;
+    })
+</script>
+</html>
