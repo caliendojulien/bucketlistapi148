@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use ApiPlatform\OpenApi\Model\Operation;
 use ApiPlatform\OpenApi\Model\RequestBody;
 use App\Repository\WishRepository;
@@ -17,6 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ApiResource]
 #[Get]
 #[GetCollection]
+#[Put(
+    security: "is_granted('ROLE_USER') and object.owner === user"
+)]
 #[Post(
     openapi: new Operation(
         description: 'Créer un nouveau wish',

@@ -8,3 +8,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> lexik/jwt-authentication-bundle ###
+#/config/jwt/*.pem /!\ NE JAMAIS FAIRE CA /!\ Exposer ses clés sur GitHub est complètement débile
+###< lexik/jwt-authentication-bundle ###
